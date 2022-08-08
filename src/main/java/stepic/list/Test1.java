@@ -1,32 +1,17 @@
 package stepic.list;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Test1 {
     public static void main(String[] args) throws IOException {
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//        String[] strings = reader.readLine().split(" ");
-////        List<Integer> helpList = getList();
-//        Set<Integer> set = new HashSet<>();
-//        //add elements from strings to set
-//        set = Arrays.stream(strings)
-//                .map(Integer::parseInt)
-//                .collect(Collectors.toSet());
-//        //add elements from helpList to set
-////        set.addAll(helpList);
-//        set = removeAllNumbersMoreThan10(set);
-//        set.forEach(System.out::println);
-        char[] input = "alpha012".toCharArray();
-        System.out.println(onlyLowCase(input));
-
+        var input = List.of(
+                new Task(1, 1),
+                new Task(1, 2),
+                new Task(1, 1)
+        );
+        System.out.println(multiAssign(input));
     }
 
     public static Set<Integer> removeAllNumbersMoreThan10(Set<Integer> set) {
@@ -43,6 +28,38 @@ public class Test1 {
             }
         }
         return builder.toString().toCharArray();
+    }
+
+    public static List<Integer> multiAssign(List<Task> tasks) {
+        List<Integer> rsl = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (Task task : tasks) {
+            map.merge(task.assignId, 1, (prev, one) -> prev + 1);
+        }
+        for (Integer key : map.keySet()) {
+            if (map.get(key) > 1) {
+                rsl.add(key);
+            }
+        }
+        return rsl;
+    }
+}
+
+class Task {
+    Integer taskId;
+    Integer assignId;
+
+    public Task(Integer taskId, Integer assignId) {
+        this.taskId = taskId;
+        this.assignId = assignId;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public Integer getAssignId() {
+        return assignId;
     }
 
 
