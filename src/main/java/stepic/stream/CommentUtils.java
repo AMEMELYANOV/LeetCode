@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 final class CommentUtils {
     public static void main(String[] args) throws ParseException {
@@ -33,24 +32,9 @@ final class CommentUtils {
      * It processes a given list of comments by removing old comments and shortening the text length
      */
     public static void handleComments(List<Comment> comments, Date thresholdDate, int maxTextLength) {
-        ListIterator<Comment> iterator = comments.listIterator();
-
-        while (iterator.hasNext()) {
-            Comment comment = iterator.next();
-            if (!comment.getCreated().after(thresholdDate)) {
-                iterator.remove();
-            }
-            if (comment.getText().length() >= maxTextLength) {
-                iterator.set(new Comment(comment.getCreated(), comment.getText().substring(0, maxTextLength)));
-            }
-        }
-//        List<Comment> temps = new ArrayList<>(comments);
-//        temps.replaceAll(temp -> new Comment(temp.getCreated(),
-//                temp.getText().substring(0, Math.min(temp.getText().length(), maxTextLength))));
-//        comments = temps.stream()
-//                .filter(comment -> comment.getCreated().after(thresholdDate))
-//                .collect(Collectors.toList());
-        printComments(comments);
+        comments.removeIf(c -> !c.getCreated().after(thresholdDate));
+        comments.replaceAll(temp -> new Comment(temp.getCreated(),
+                temp.getText().substring(0, Math.min(temp.getText().length(), maxTextLength))));
     }
 
     /**
