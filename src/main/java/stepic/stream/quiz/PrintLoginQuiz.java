@@ -20,6 +20,16 @@ class PrintLoginQuiz {
 
     public static void printLoginIfPro(Set<User> users, String id) {
         // write your code here
+        users.stream()
+                .filter(user -> user.getAccount()
+                        .map(Account::getId)
+                        .map(id::equals)
+                        .orElse(false))
+                .filter(user -> user.getAccount()
+                        .map(Account::getType)
+                        .map("pro"::equals)
+                        .orElse(false))
+                .forEach(u -> System.out.println(u.getLogin()));
     }
 }
 

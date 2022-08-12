@@ -43,10 +43,8 @@ class Calculator<T extends Number> {
      * The method creates a new instance of the calculator with a specified initial value.
      */
     public static <T extends Number> Calculator<T> of(T value) {
-        Calculator<T> calculator = new Calculator<>(value);
         // Implement this method
-//        return getBrokenCalculator();
-        return calculator;
+        return value == null ? getBrokenCalculator() : new Calculator<>(value);
     }
 
     /**
@@ -55,39 +53,41 @@ class Calculator<T extends Number> {
      */
     public <U extends Number> Calculator<U> eval(Function<? super T, ? extends U> mapper) {
         // write your code here
-        mapper.apply(value);
-        return getBrokenCalculator();
-
+        try {
+            return Calculator.of(mapper.apply(value));
+        } catch (ArithmeticException | NullPointerException e) {
+            return getBrokenCalculator();
+        }
     }
-
 
     /**
      * The method passes the stored value to a given consumer only if no errors have occurred in the calculator.
      */
     public Calculator<T> consume(Consumer<T> consumer) {
         // write your code here
-        consumer.accept(value);
-        return getBrokenCalculator();
+        if (!hasError) consumer.accept(value);
+        return Calculator.of(value);
     }
 
     public static void main(String[] args) {
         Calculator.of(10) // inits calculator with the default value 10
                 .consume(System.out::println) // shows the current value 10
-                .eval(value -> value * 10)   ;  // evaluates a new expression: 100
-//                .eval(value -> value + 5)      // evaluates a new expression: 105
-//                .consume(System.out::println)  // shows the current value 105
-//                .eval(value -> value / 0)      // provokes an error
-//                .consume(System.out::println); // doesn't print anything
-//
-//        Calculator.of((Integer) null) // inits calculator with null as the default value
-//                .eval(value -> value * 10)     // doesn't evaluate anything
-//                .eval(value -> value + 5)      // doesn't evaluate anything
-//                .consume(System.out::println); // doesn't print anything
-//
-//        Calculator.of(10) // init calculator with the default value 10
-//                .eval(value -> value + 5)      // evaluates a new expression: 15
-//                .consume(System.out::println)  // shows the current value 15
-//                .eval(value -> null) // makes the value null
-//                .consume(System.out::println); // doesn't print anything
+                .eval(value -> value * 10)
+                .consume(System.out::println)// evaluates a new expression: 100
+                .eval(value -> value + 5)      // evaluates a new expression: 105
+                .consume(System.out::println)  // shows the current value 105
+                .eval(value -> value / 0)      // provokes an error
+                .consume(System.out::println); // doesn't print anything
+
+        Calculator.of((Integer) null) // inits calculator with null as the default value
+                .eval(value -> value * 10)     // doesn't evaluate anything
+                .eval(value -> value + 5)      // doesn't evaluate anything
+                .consume(System.out::println); // doesn't print anything
+
+        Calculator.of(10) // init calculator with the default value 10
+                .eval(value -> value + 5)      // evaluates a new expression: 15
+                .consume(System.out::println)  // shows the current value 15
+                .eval(value -> null) // makes the value null
+                .consume(System.out::println); // doesn't print anything
     }
 }
