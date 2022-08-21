@@ -1,4 +1,4 @@
-package stepic.stream;
+package stepic.functional_programming;
 
 import java.util.ArrayList;
 import java.util.Comparator;

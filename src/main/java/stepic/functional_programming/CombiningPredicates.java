@@ -1,10 +1,9 @@
-package stepic.stream;
+package stepic.functional_programming;
 
 import java.util.*;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CombiningPredicates {
 

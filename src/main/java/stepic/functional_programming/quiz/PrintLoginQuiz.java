@@ -1,4 +1,4 @@
-package stepic.stream.quiz;
+package stepic.functional_programming.quiz;
 
 import java.util.HashSet;
 import java.util.Optional;
