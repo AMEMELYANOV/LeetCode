@@ -1,4 +1,4 @@
-package stepic.functional_programming.Ex7_1;
+package stepic.functional_programming.Ex7_1.NewIDE;
 
 interface Command {
 
