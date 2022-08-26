@@ -13,9 +13,7 @@ class ExtensionService {
     }
 
     public static Function<String, String> addExtension(Predicate<String> p1, Predicate<String> p2) {
-        // write your code here
-            if (s -> p1.test(s)) {
-                return s + ".xml";
-            }
+        return (s) -> p1.test(s) ? s + ".xml"
+                : p2.test(s) ? s + ".json" : s;
     }
 }
