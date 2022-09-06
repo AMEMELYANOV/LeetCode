@@ -1,4 +1,4 @@
-package stepic.test.Ex2_1;
+package stepic.alg_and_struct.Ex1_2.Ex2_1;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

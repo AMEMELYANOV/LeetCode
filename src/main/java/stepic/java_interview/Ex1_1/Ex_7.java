@@ -32,21 +32,20 @@ public class Ex_7 {
     }
 
     static Node merge(Node head1, Node head2) {
-        if(head1 == null) {
-            return head2;
-        }
-        if(head2 == null) {
-            return head1;
-        }
         Node node = new Node();
-        if(head1.getData() < head2.getData()) {
-            node.setData(head1.getData());
-            node.setNext(merge(head1.getNext(), head2));
-        } else {
-            node.setData(head2.getData());
-            node.setNext(merge(head1, head2.getNext()));
+        Node head = node;
+        while (head1 != null || head2 != null) {
+            if (head1 == null || head2 != null && head2.getData() < head1.getData()) {
+                node.setNext(head2);
+                node = node.getNext();
+                head2 = head2.getNext();
+            } else {
+                node.setNext(head1);
+                node = node.getNext();
+                head1 = head1.getNext();
+            }
         }
-        return node;
+        return head.getNext();
     }
 
     static void printNode(Node head) {
