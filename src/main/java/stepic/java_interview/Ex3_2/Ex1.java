@@ -1,4 +1,4 @@
-package stepic.java_interview.Ex4_1;
+package stepic.java_interview.Ex3_2;
 
 import java.util.List;
 import java.util.stream.Stream;
