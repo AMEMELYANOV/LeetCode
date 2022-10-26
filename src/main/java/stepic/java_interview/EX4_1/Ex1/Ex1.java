@@ -14,12 +14,7 @@ public class Ex1 {
                 .map(Field::getName)
                 .sorted(Comparator.naturalOrder())
                 .forEach(System.out::println);
-//        for (Field field : fields) {
-//            field.setAccessible(true);
-//            System.out.println(field.getName());
-//        }
     }
-
 
     public static void main(String[] args) {
         A a = new A(10, "name");
