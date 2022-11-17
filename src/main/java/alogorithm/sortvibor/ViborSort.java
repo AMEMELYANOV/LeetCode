@@ -10,20 +10,23 @@ public class ViborSort {
 
     public static int[] viborSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
-            int min = arr[i];
-            int minIndex = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[j] < min) {
-                    min = arr[j];
-                    minIndex = j;
-                }
-            }
-            if (arr[i] > arr[minIndex]) {
-                int temp = arr[i];
-                arr[i] = arr[minIndex];
-                arr[minIndex] = temp;
-            }
+            int minInd = getMinIndex(arr, i);
+            int temp = arr[i];
+            arr[i] = arr[minInd];
+            arr[minInd] = temp;
         }
         return arr;
+    }
+
+    private static int getMinIndex(int[] arr, int indStart) {
+        int minIndex = indStart;
+        int min = arr[indStart];
+        for (int i = indStart + 1; i < arr.length; i++) {
+            if (min > arr[i]) {
+                min = arr[i];
+                minIndex = i;
+            }
+        }
+        return minIndex;
     }
 }
